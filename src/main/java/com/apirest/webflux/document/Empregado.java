@@ -12,6 +12,15 @@ public class Empregado {
     private String name, service, adm;
     private int contact, salar;
 
+    public Empregado(String id, String name, String service, String adm, int contact, int salar) {
+        this.id = id;
+        this.name = name;
+        this.service = service;
+        this.adm = adm;
+        this.contact = contact;
+        this.salar = salar;
+    }
+
     public String getId() {
         return id;
     }

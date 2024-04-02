@@ -4,7 +4,9 @@ import com.apirest.webflux.document.Empregado;
 import com.apirest.webflux.repository.EmpregadoRepository;
 import com.apirest.webflux.services.IEmpregado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,20 +20,44 @@ public class EmpregadoController {
 
     @GetMapping
     public Flux<Empregado> getService(){
-        return es.findAll();
+        try{
+            return es.findAll();
+        }catch (Exception ex){
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Erro:", ex);
+        }
+
+
     }
     @GetMapping("/{id}")
     public Mono<Empregado> getOneService(@PathVariable String id){
-        return es.findById(id);
+
+        try{
+            return es.findById(id);
+        }catch (Exception ex){
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Erro:", ex);
+        }
+
     }
 
     @PostMapping()
     public Mono<Empregado> save(Empregado empregado){
-        return es.save(empregado);
+
+        try{
+            return es.save(empregado);
+        }catch (Exception ex){
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Erro:", ex);
+        }
+
     }
 
     @DeleteMapping("/{id}")
     public Mono<Void> delete(@PathVariable String id){
-        return es.delete(id);
+
+        try{
+            return es.delete(id);
+        }catch (Exception ex){
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Erro:", ex);
+        }
+
     }
 }
